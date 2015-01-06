@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDoubles.Tests", "TestDoubles.Tests\TestDoubles.Tests.csproj", "{187D4219-D59D-4DE7-A173-8A018F1DC38A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDoubles.System", "TestDoubles.System\TestDoubles.System.csproj", "{8C4CC719-11AC-4CCC-8299-B707BDF9D755}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{187D4219-D59D-4DE7-A173-8A018F1DC38A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{187D4219-D59D-4DE7-A173-8A018F1DC38A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{187D4219-D59D-4DE7-A173-8A018F1DC38A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{187D4219-D59D-4DE7-A173-8A018F1DC38A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C4CC719-11AC-4CCC-8299-B707BDF9D755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C4CC719-11AC-4CCC-8299-B707BDF9D755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C4CC719-11AC-4CCC-8299-B707BDF9D755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C4CC719-11AC-4CCC-8299-B707BDF9D755}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
