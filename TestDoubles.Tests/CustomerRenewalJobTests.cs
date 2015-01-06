@@ -9,11 +9,22 @@ namespace TestDoubles.Tests
 		[Test]
 		public void Foo()
 		{
-			var customerRenewalJob = new CustomerRenewalJob();
+			var timeService = new FakeTimeService();
+			var customerRenewalJob = new CustomerRenewalJob(timeService);
 
 			customerRenewalJob.Run();
 
-			// TODO: assert
+			Assert.IsTrue(timeService.WasCalled);
 		}
 	}
+
+	public class FakeTimeService : CustomerRenewalJob.ITimeService
+	{
+		public bool WasCalled
+		{
+			get { throw new global::System.NotImplementedException(); }
+		}
+	}
+
+
 }
