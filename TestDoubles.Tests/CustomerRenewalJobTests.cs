@@ -1,28 +1,65 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using TestDoubles.System;
 
 namespace TestDoubles.Tests
 {
 	[TestFixture]
-	public class CustomerRenewalJobTests
+	public class CustomerRenewalJobTests : ICustomerRepository
 	{
-		[Test]
-		public void Foo()
+		private DateTime _actualStartDate;
+		private DateTime _actualEndDate;
+		private DateTime _stubbedDateTime = new DateTime(2001, 1, 1);
+		private CustomerRenewalJob _customerRenewalJob;
+		private FakeTimeService _timeService;
+
+		[SetUp]
+		public void SetUp()
 		{
-			var timeService = new FakeTimeService();
-			var customerRenewalJob = new CustomerRenewalJob(timeService);
+			_timeService = new FakeTimeService(_stubbedDateTime);
+			_customerRenewalJob = new CustomerRenewalJob(_timeService, this);
+		}
 
-			customerRenewalJob.Run();
+		[Test]
+		public void Should_get_date_and_time()
+		{
+			_customerRenewalJob.Run();
 
-			Assert.IsTrue(timeService.WasCalled);
+			Assert.IsTrue(_timeService.WasCalled);
+		}
+
+		[Test]
+		public void Should_call_customer_repository_correctly()
+		{
+			_customerRenewalJob.Run();
+
+			Assert.That(_actualStartDate, Is.EqualTo(_stubbedDateTime));
+			Assert.That(_actualEndDate, Is.EqualTo(_stubbedDateTime.AddMonths(1)));
+		}
+
+		public IEnumerable<Customer> GetCustomersExpiringBetween(DateTime startDate, DateTime endDate)
+		{
+			_actualStartDate = startDate;
+			_actualEndDate = endDate;
+			return new List<Customer>();
 		}
 	}
 
-	public class FakeTimeService : CustomerRenewalJob.ITimeService
+	public class FakeTimeService : ITimeService
 	{
-		public bool WasCalled
+		private readonly DateTime _stubbedDateTime;
+
+		public FakeTimeService(DateTime dateTime)
 		{
-			get { throw new global::System.NotImplementedException(); }
+			_stubbedDateTime = dateTime;
+		}
+
+		public bool WasCalled { get; set; }
+		public DateTime GetDateTime()
+		{
+			WasCalled = true;
+			return _stubbedDateTime;
 		}
 	}
 

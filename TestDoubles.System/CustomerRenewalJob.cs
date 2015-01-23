@@ -1,21 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TestDoubles.System
 {
+	public interface ITimeService
+	{
+		DateTime GetDateTime();
+	}
+	
+	public interface ICustomerRepository
+	{
+		IEnumerable<Customer> GetCustomersExpiringBetween(DateTime startDate, DateTime endDate);
+	}
+
+	public class Customer
+	{
+	}
+
 	public class CustomerRenewalJob
 	{
-		public interface ITimeService
-		{
-		}
+		private readonly ITimeService _timeService;
+		private readonly ICustomerRepository _customerRepository;
 
-		public CustomerRenewalJob(ITimeService timeService)
+		public CustomerRenewalJob(ITimeService timeService, ICustomerRepository customerRepository)
 		{
-			throw new NotImplementedException();
+			_timeService = timeService;
+			_customerRepository = customerRepository;
 		}
 
 		public void Run()
 		{
-			throw new NotImplementedException();
+			var startDate = _timeService.GetDateTime();
+			var endDate = startDate.AddMonths(1);
+			_customerRepository.GetCustomersExpiringBetween(startDate, endDate);
 		}
 	}
+
 }
