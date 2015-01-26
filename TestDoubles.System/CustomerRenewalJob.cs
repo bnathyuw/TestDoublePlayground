@@ -21,18 +21,21 @@ namespace TestDoubles.System
 	{
 		private readonly ITimeService _timeService;
 		private readonly ICustomerRepository _customerRepository;
+		private readonly IMailSpool _mailSpool;
 
-		public CustomerRenewalJob(ITimeService timeService, ICustomerRepository customerRepository)
+		public CustomerRenewalJob(ITimeService timeService, ICustomerRepository customerRepository, IMailSpool mailSpool)
 		{
 			_timeService = timeService;
 			_customerRepository = customerRepository;
+			_mailSpool = mailSpool;
 		}
 
 		public void Run()
 		{
 			var startDate = _timeService.GetDateTime();
 			var endDate = startDate.AddMonths(1);
-			_customerRepository.GetCustomersExpiringBetween(startDate, endDate);
+			var expiringCustomers = _customerRepository.GetCustomersExpiringBetween(startDate, endDate);
+			_mailSpool.SendReminderEmails(expiringCustomers);
 		}
 	}
 
